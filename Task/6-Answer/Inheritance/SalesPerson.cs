@@ -11,10 +11,7 @@
         {
             if (percent >= 200) { base.SetBonus(bonus * 3); }
             else if (percent >= 100) { base.SetBonus(bonus * 2); }
-            else
-            {
-                base.SetBonus(bonus);
-            }
+            else { base.SetBonus(bonus); }
         }
     }
 

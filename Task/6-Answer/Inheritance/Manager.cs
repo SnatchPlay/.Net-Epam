@@ -11,13 +11,9 @@
         }
         public override void SetBonus(decimal bonus)
         {
-            if (quantity >= 150) { base.SetBonus(1000); }
-            else if (quantity >= 100) { base.SetBonus(500); }
-            else
-            {
-                base.SetBonus(bonus);
-            }
-
+            if (quantity > 150) { base.SetBonus(1000 + bonus); }
+            else if (quantity > 100) { base.SetBonus(500 + bonus); }
+            else { base.SetBonus(bonus); }
         }
     }
 
