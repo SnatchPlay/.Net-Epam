@@ -16,8 +16,7 @@ namespace PolynomialObject
         public object Clone()
         {
             return new PolynomialMember(Degree, Coefficient);
-            ///todo
-            ///throw new NotImplementedException();
+            
         }
     }
 }

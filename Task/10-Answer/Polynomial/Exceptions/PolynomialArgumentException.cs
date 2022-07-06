@@ -9,5 +9,7 @@ namespace PolynomialObject.Exceptions
         public PolynomialArgumentException() : base() { }
 
         public PolynomialArgumentException(string message) : base(message) { }
+        public PolynomialArgumentException(string message, Exception innerException) : base(message, innerException) { }
+
     }
 }

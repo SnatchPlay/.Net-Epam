@@ -7,7 +7,7 @@ namespace PolynomialObject
 {
     public sealed class Polynomial
     {
-        private List<PolynomialMember> _polynomials = new List<PolynomialMember>();
+        readonly List<PolynomialMember> _polynomials = new List<PolynomialMember>();
         public Polynomial()
         {
             _polynomials.Add(new PolynomialMember(0, 0));
@@ -74,7 +74,7 @@ namespace PolynomialObject
             if (_polynomials.Exists(x => x.Degree == member.degree) || member.coefficient == 0)
                 throw new PolynomialArgumentException();
             _polynomials.Add(new PolynomialMember(member.degree, member.coefficient));
-            
+
         }
 
         public bool RemoveMember(double degree)
@@ -138,13 +138,6 @@ namespace PolynomialObject
             return _polynomials.ToArray();
         }
 
-        /// <summary>
-        /// Adds two polynomials
-        /// </summary>
-        /// <param name="a">The first polynomial</param>
-        /// <param name="b">The second polynomial</param>
-        /// <returns>New polynomial after adding</returns>
-        /// <exception cref="PolynomialArgumentNullException">Throws if either of provided polynomials is null</exception>
         public static Polynomial operator +(Polynomial a, Polynomial b)
         {
             try
@@ -179,13 +172,13 @@ namespace PolynomialObject
                         double coef = a._polynomials[i].Coefficient + b._polynomials.Find(x => x.Degree.Equals(a._polynomials[i].Degree)).Coefficient;
                         if (coef != 0)
                         {
-                            polynomial.AddMember(new PolynomialMember(a._polynomials[i].Degree, coef));
+                            polynomial._polynomials.Add(new PolynomialMember(a._polynomials[i].Degree, coef));
                             tmp.RemoveAt(tmp.FindIndex(x => x.Degree == a._polynomials[i].Degree));
                         }
                         else
                         {
                             if (polynomial.Count == 0)
-                                polynomial.AddMember(new PolynomialMember(0, coef));
+                                polynomial._polynomials.Add(new PolynomialMember(0, coef));
                             tmp.RemoveAt(tmp.FindIndex(x => x.Degree == a._polynomials[i].Degree));
                         }
                     }
@@ -197,7 +190,7 @@ namespace PolynomialObject
                 }
                 for (int i = 0; i < tmp.Count; i++)
                 {
-                    polynomial.AddMember(tmp[i]);
+                    polynomial._polynomials.Add(tmp[i]);
                 }
                 polynomial._polynomials.RemoveAt(0);
 
@@ -208,209 +201,166 @@ namespace PolynomialObject
                 throw new PolynomialArgumentNullException();
             }
         }
-
-        /// <summary>
-        /// Subtracts two polynomials
-        /// </summary>
-        /// <param name="a">The first polynomial</param>
-        /// <param name="b">The second polynomial</param>
-        /// <returns>Returns new polynomial after subtraction</returns>
-        /// <exception cref="PolynomialArgumentNullException">Throws if either of provided polynomials is null</exception>
-        public static Polynomial operator -(Polynomial a, Polynomial b)
-        {
-            Polynomial polynomial = new Polynomial();
-
-            Polynomial p = new Polynomial();
-            p._polynomials.AddRange(a._polynomials);
-            p._polynomials.AddRange(b._polynomials);
-
-            List<PolynomialMember> tmp = new List<PolynomialMember>();
-            foreach (PolynomialMember item in p._polynomials)
-            {
-                if (!tmp.Any(x => x.Degree == item.Degree))
-                    tmp.Add(item);
-            }
-            foreach (var i in tmp.OrderBy(x => x.Degree).ToDictionary(x => x.Degree).Keys)
-            {
-                var ap = a._polynomials.FirstOrDefault(x => x.Degree == i);
-                var bp = b._polynomials.FirstOrDefault(x => x.Degree == i);
-                if (ap != null && bp != null)
-                {
-                    var coef = ap.Coefficient - bp.Coefficient;
-                    if (coef != 0)
-                        polynomial._polynomials.Add(new PolynomialMember(i, coef));
-                }
-                else if (ap != null && bp == null)
-                {
-                    var coef = ap.Coefficient;
-                    if (coef != 0)
-                        polynomial._polynomials.Add(new PolynomialMember(i, coef));
-                }
-                else if (ap == null && bp != null)
-                {
-                    var coef = -bp.Coefficient;
-                    if (coef != 0)
-                        polynomial._polynomials.Add(new PolynomialMember(i, coef));
-                }
-                else if (ap == null && bp == null) { }
-            }
-            if (polynomial._polynomials.Count > 1)
-                polynomial._polynomials.RemoveAt(0);
-            return polynomial;
-
-        }
-
-        /// <summary>
-        /// Multiplies two polynomials
-        /// </summary>
-        /// <param name="a">The first polynomial</param>
-        /// <param name="b">The second polynomial</param>
-        /// <returns>Returns new polynomial after multiplication</returns>
-        /// <exception cref="PolynomialArgumentNullException">Throws if either of provided polynomials is null</exception>
-        public static Polynomial operator *(Polynomial a, Polynomial b)
-        {
-            Polynomial polynomial = new Polynomial();
-            List<double> keys = new List<double>();
-            Polynomial t = new Polynomial();
-            for (int i = 0; i < a._polynomials.Count; i++)
-            {
-                for (int j = 0; j < b._polynomials.Count; j++)
-                {
-                    double key = a._polynomials[i].Degree + b._polynomials[j].Degree;
-                    double coef = a._polynomials[i].Coefficient * b._polynomials[j].Coefficient;
-                    if (!keys.Contains(key)) keys.Add(key);
-                    t.AddMember(
-                        new PolynomialMember(key, coef));
-                }
-            }
-            
-            foreach (var key in keys)
-            {
-                double coef = 0;
-                for (int j = 0; j < t._polynomials.Count; j++)
-                {
-                    if (t._polynomials[j].Degree == key)
-                        coef += t._polynomials[j].Coefficient;
-                }
-                polynomial._polynomials.Add(new PolynomialMember(key, coef));
-            }
-            for (int i = polynomial._polynomials.Count - 1; i >= 0; i--)
-            {
-                if (polynomial._polynomials[i].Coefficient == 0 && polynomial._polynomials.Count > 1)
-                    polynomial._polynomials.RemoveAt(i);
-            }
-            return polynomial;
-        }
-
-        /// <summary>
-        /// Adds polynomial to polynomial
-        /// </summary>
-        /// <param name="polynomial">The polynomial to add</param>
-        /// <returns>Returns new polynomial after adding</returns>
-        /// <exception cref="PolynomialArgumentNullException">Throws if provided polynomial is null</exception>
         public Polynomial Add(Polynomial polynomial)
         {
             if (polynomial == null)
                 throw new PolynomialArgumentNullException();
             return this + polynomial;
         }
+        public Polynomial Add((double degree, double coefficient) member)
+        {
+            Polynomial babayko = new Polynomial(member);
+            return this + babayko;
+        }
 
-        /// <summary>
-        /// Subtracts polynomial from polynomial
-        /// </summary>
-        /// <param name="polynomial">The polynomial to subtract</param>
-        /// <returns>Returns new polynomial after subtraction</returns>
-        /// <exception cref="PolynomialArgumentNullException">Throws if provided polynomial is null</exception>
+        public Polynomial Subtraction((double degree, double coefficient) member)
+        {
+            Polynomial babayko = new Polynomial(member);
+            return this - babayko;
+        }
         public Polynomial Subtraction(Polynomial polynomial)
         {
-            //if (polynomial == null)
-            //    throw new PolynomialArgumentNullException();
+            if (polynomial == null)
+                throw new PolynomialArgumentNullException();
             return this - polynomial;
         }
 
-        /// <summary>
-        /// Multiplies polynomial with polynomial
-        /// </summary>
-        /// <param name="polynomial">The polynomial for multiplication </param>
-        /// <returns>Returns new polynomial after multiplication</returns>
-        /// <exception cref="PolynomialArgumentNullException">Throws if provided polynomial is null</exception>
+        public Polynomial Multiply((double degree, double coefficient) member)
+        {
+            Polynomial babayko = new Polynomial(member);
+            return this * babayko;
+        }
         public Polynomial Multiply(Polynomial polynomial)
         {
-            //if (polynomial == null)
-            //    throw new PolynomialArgumentNullException();
+            if (polynomial == null)
+                throw new PolynomialArgumentNullException();
             return this * polynomial;
         }
 
-        /// <summary>
-        /// Adds polynomial and tuple
-        /// </summary>
-        /// <param name="a">The polynomial</param>
-        /// <param name="b">The tuple</param>
-        /// <returns>Returns new polynomial after adding</returns>
+        public static Polynomial operator -(Polynomial a, Polynomial b)
+        {
+            try
+            {
+                if (a == null || b == null)
+                    throw new PolynomialArgumentNullException();
+                Polynomial polynomial = new Polynomial();
+
+                Polynomial p = new Polynomial();
+                p._polynomials.AddRange(a._polynomials);
+                p._polynomials.AddRange(b._polynomials);
+
+                List<PolynomialMember> tmp = new List<PolynomialMember>();
+                foreach (PolynomialMember item in p._polynomials)
+                {
+                    if (!tmp.Any(x => x.Degree == item.Degree))
+                        tmp.Add(item);
+                }
+                foreach (var i in tmp.OrderBy(x => x.Degree).ToDictionary(x => x.Degree).Keys)
+                {
+                    var ap = a._polynomials.FirstOrDefault(x => x.Degree == i);
+                    var bp = b._polynomials.FirstOrDefault(x => x.Degree == i);
+                    if (ap != null && bp != null)
+                    {
+                        var coef = ap.Coefficient - bp.Coefficient;
+                        if (coef != 0)
+                            polynomial._polynomials.Add(new PolynomialMember(i, coef));
+                    }
+                    else if (ap != null)
+                    {
+                        var coef = ap.Coefficient;
+                        if (coef != 0)
+                            polynomial._polynomials.Add(new PolynomialMember(i, coef));
+                    }
+                    else if (bp != null)
+                    {
+                        var coef = -bp.Coefficient;
+                        if (coef != 0)
+                            polynomial._polynomials.Add(new PolynomialMember(i, coef));
+                    }
+
+                }
+                if (polynomial._polynomials.Count > 1)
+                    polynomial._polynomials.RemoveAt(0);
+                return polynomial;
+            }
+            catch (Exception)
+            {
+                throw new PolynomialArgumentNullException();
+            }
+
+        }
+
+        public static Polynomial operator *(Polynomial a, Polynomial b)
+        {
+            try
+            {
+                if (a == null || b == null)
+                    throw new PolynomialArgumentNullException();
+                Polynomial polynomial = new Polynomial();
+                List<double> keys = new List<double>();
+                Polynomial t = new Polynomial();
+                for (int i = 0; i < a._polynomials.Count; i++)
+                {
+                    for (int j = 0; j < b._polynomials.Count; j++)
+                    {
+                        double key = a._polynomials[i].Degree + b._polynomials[j].Degree;
+                        double coef = a._polynomials[i].Coefficient * b._polynomials[j].Coefficient;
+                        if (!keys.Contains(key)) keys.Add(key);
+                        t._polynomials.Add(
+                            new PolynomialMember(key, coef));
+                    }
+                }
+
+                foreach (var key in keys)
+                {
+                    double coef = 0;
+                    for (int j = 0; j < t._polynomials.Count; j++)
+                    {
+                        if (t._polynomials[j].Degree == key)
+                            coef += t._polynomials[j].Coefficient;
+                    }
+                    polynomial._polynomials.Add(new PolynomialMember(key, coef));
+                }
+                for (int i = polynomial._polynomials.Count - 1; i >= 0; i--)
+                {
+                    if (polynomial._polynomials[i].Coefficient == 0 && polynomial._polynomials.Count > 1)
+                        polynomial._polynomials.RemoveAt(i);
+                }
+                return polynomial;
+            }
+            catch (Exception)
+            {
+                throw new PolynomialArgumentNullException();
+            }
+        }
+
+        
+
+        
+
+        
+
         public static Polynomial operator +(Polynomial a, (double degree, double coefficient) b)
         {
-            //todo
-            throw new NotImplementedException();
+            Polynomial babayko = new Polynomial(b);
+            return a + babayko;
         }
 
-        /// <summary>
-        /// Subtract polynomial and tuple
-        /// </summary>
-        /// <param name="a">The polynomial</param>
-        /// <param name="b">The tuple</param>
-        /// <returns>Returns new polynomial after subtraction</returns>
+
         public static Polynomial operator -(Polynomial a, (double degree, double coefficient) b)
         {
-            //todo
-            throw new NotImplementedException();
+            Polynomial babayko = new Polynomial(b);
+            return a - babayko;
         }
 
-        /// <summary>
-        /// Multiplies polynomial and tuple
-        /// </summary>
-        /// <param name="a">The polynomial</param>
-        /// <param name="b">The tuple</param>
-        /// <returns>Returns new polynomial after multiplication</returns>
+
         public static Polynomial operator *(Polynomial a, (double degree, double coefficient) b)
         {
-            //todo
-            throw new NotImplementedException();
+            Polynomial babayko = new Polynomial(b);
+            return a * babayko;
         }
 
-        /// <summary>
-        /// Adds tuple to polynomial
-        /// </summary>
-        /// <param name="member">The tuple to add</param>
-        /// <returns>Returns new polynomial after adding</returns>
-        public Polynomial Add((double degree, double coefficient) member)
-        {
-            //todo
-            return this + member;
-            throw new NotImplementedException();
-        }
 
-        /// <summary>
-        /// Subtracts tuple from polynomial
-        /// </summary>
-        /// <param name="member">The tuple to subtract</param>
-        /// <returns>Returns new polynomial after subtraction</returns>
-        public Polynomial Subtraction((double degree, double coefficient) member)
-        {
-            //todo
-            return this - member;
-            throw new NotImplementedException();
-        }
-
-        /// <summary>
-        /// Multiplies tuple with polynomial
-        /// </summary>
-        /// <param name="member">The tuple for multiplication </param>
-        /// <returns>Returns new polynomial after multiplication</returns>
-        public Polynomial Multiply((double degree, double coefficient) member)
-        {
-            //todo
-            return this * member;
-            throw new NotImplementedException();
-        }
+        
     }
 }
