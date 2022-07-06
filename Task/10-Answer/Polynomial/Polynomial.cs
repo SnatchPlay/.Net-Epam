@@ -1,25 +1,21 @@
-using System;
-using System.Linq;
-using System.Collections.Generic;
 using PolynomialObject.Exceptions;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace PolynomialObject
 {
     public sealed class Polynomial
     {
-        private List<PolynomialMember> _polynomials=new List<PolynomialMember>();
+        private List<PolynomialMember> _polynomials = new List<PolynomialMember>();
         public Polynomial()
         {
             _polynomials.Add(new PolynomialMember(0, 0));
-            //todo
-            ///throw new NotImplementedException();
         }
 
         public Polynomial(PolynomialMember member)
         {
             _polynomials.Add(member);
-            //todo
-            ///throw new NotImplementedException();
         }
 
         public Polynomial(IEnumerable<PolynomialMember> members)
@@ -28,160 +24,118 @@ namespace PolynomialObject
             {
                 _polynomials.Add(member);
             }
-            //todo
-           /// throw new NotImplementedException();
         }
 
         public Polynomial((double degree, double coefficient) member)
         {
             _polynomials.Add(new PolynomialMember(member.degree, member.coefficient));
-            //todo
-            ///throw new NotImplementedException();
         }
 
         public Polynomial(IEnumerable<(double degree, double coefficient)> members)
         {
             foreach (var m in members)
             {
-
-                _polynomials.Add(new PolynomialMember(m.degree,m.coefficient));
+                _polynomials.Add(new PolynomialMember(m.degree, m.coefficient));
             }
-            
-            //todo
-            ///throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// The amount of not null polynomial members in polynomial 
-        /// </summary>
         public int Count
         {
             get
             {
                 return _polynomials.Count(x => x.Coefficient != 0);
-                //todo
-                ///throw new NotImplementedException();
             }
         }
 
-        /// <summary>
-        /// The biggest degree of polynomial member in polynomial
-        /// </summary>
         public double Degree
         {
             get
             {
                 return _polynomials.Max(x => x.Degree);
-                //todo
-                ///throw new NotImplementedException();
             }
         }
 
-        /// <summary>
-        /// Adds new unique member to polynomial 
-        /// </summary>
-        /// <param name="member">The member to be added</param>
-        /// <exception cref="PolynomialArgumentException">Throws when member to add with such degree already exist in polynomial</exception>
-        /// <exception cref="PolynomialArgumentNullException">Throws when trying to member to add is null</exception>
         public void AddMember(PolynomialMember member)
         {
-            _polynomials.Add(member);
-            //todo
-            ///throw new NotImplementedException();
+            try
+            {
+                if (_polynomials.Exists(x => x.Degree == member.Degree) || member.Coefficient == 0)
+                    throw new PolynomialArgumentException();
+                _polynomials.Add(member);
+            }
+            catch (NullReferenceException)
+            {
+                throw new PolynomialArgumentNullException();
+            }
         }
 
-        /// <summary>
-        /// Adds new unique member to polynomial from tuple
-        /// </summary>
-        /// <param name="member">The member to be added</param>
-        /// <exception cref="PolynomialArgumentException">Throws when member to add with such degree already exist in polynomial</exception>
         public void AddMember((double degree, double coefficient) member)
         {
-            _polynomials.Add(new PolynomialMember(member.degree,member.coefficient));
-            //todo
-            ///throw new NotImplementedException();
+            if (_polynomials.Exists(x => x.Degree == member.degree) || member.coefficient == 0)
+                throw new PolynomialArgumentException();
+            _polynomials.Add(new PolynomialMember(member.degree, member.coefficient));
+            
         }
 
-        /// <summary>
-        /// Removes member of specified degree
-        /// </summary>
-        /// <param name="degree">The degree of member to be deleted</param>
-        /// <returns>True if member has been deleted</returns>
         public bool RemoveMember(double degree)
         {
-            ///double max=_polynomials.Max(x=>x.Degree);
-            int ind=_polynomials.FindIndex(x => x.Degree.Equals(degree));
-            
+            int ind = _polynomials.FindIndex(x => x.Degree.Equals(degree));
             if (ind != -1)
             {
                 _polynomials.RemoveAt(ind);
                 return true;
             }
             return false;
-            //todo
-            ///throw  new NotImplementedException();
         }
 
-        /// <summary>
-        /// Searches the polynomial for a method of specified degree
-        /// </summary>
-        /// <param name="degree">Degree of member</param>
-        /// <returns>True if polynomial contains member</returns>
         public bool ContainsMember(double degree)
         {
-            PolynomialMember m= _polynomials.Find(x => x.Degree.Equals(degree));
+            PolynomialMember m = _polynomials.Find(x => x.Degree.Equals(degree));
             if (m != null)
             {
                 return true;
             }
-            //todo
-            ///throw new NotImplementedException();
             return false;
         }
 
-        /// <summary>
-        /// Finds member of specified degree
-        /// </summary>
-        /// <param name="degree">Degree of member</param>
-        /// <returns>Returns the found member or null</returns>
         public PolynomialMember Find(double degree)
         {
             return _polynomials.Find(x => x.Degree.Equals(degree));
-            //todo
-            ///throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Gets and sets the coefficient of member with provided degree
-        /// If there is no null member for searched degree - return 0 for get and add new member for set
-        /// </summary>
-        /// <param name="degree">The degree of searched member</param>
-        /// <returns>Coefficient of found member</returns>
         public double this[double degree]
         {
             get
             {
-                return degree;
-                //todo
-                ///throw new NotImplementedException();
+                var temp = _polynomials.Find(x => x.Degree == degree);
+                return (temp == null) ? 0 : temp.Coefficient;
             }
-            set 
-            { 
-                degree = value;
-                //todo
-                ///throw new NotImplementedException();
+            set
+            {
+                var temp = _polynomials.Find(x => x.Degree == degree);
+                if (temp != null)
+                {
+                    if (temp.Degree != 0)
+                    {
+                        if (value != 0)
+                            _polynomials[_polynomials.IndexOf(temp)].Coefficient = value;
+                        else
+                            _polynomials.RemoveAt(_polynomials.IndexOf(temp));
+                    }
+                    else
+                        _polynomials.RemoveAt(_polynomials.IndexOf(temp));
+                }
+                else
+                {
+                    if (value != 0)
+                        _polynomials.Add(new PolynomialMember(degree, value));
+                }
             }
         }
 
-        /// <summary>
-        /// Convert polynomial to array of included polynomial members 
-        /// </summary>
-        /// <returns>Array with not null polynomial members</returns>
         public PolynomialMember[] ToArray()
         {
             return _polynomials.ToArray();
-            //todo
-            ///throw new NotImplementedException();
         }
 
         /// <summary>
@@ -193,95 +147,66 @@ namespace PolynomialObject
         /// <exception cref="PolynomialArgumentNullException">Throws if either of provided polynomials is null</exception>
         public static Polynomial operator +(Polynomial a, Polynomial b)
         {
-            Polynomial polynomial = new Polynomial();
-            List<double> degress = new List<double>();
-            Polynomial tmp=new Polynomial();
-            for(int i=0;i< b._polynomials.Count;i++)
+            try
             {
-                tmp._polynomials[i] = b._polynomials[i];
-            }
-            foreach(PolynomialMember member in b._polynomials)
-            {
-                degress.Add(member.Degree);
-            }
-            ///PolynomialMember member = new PolynomialMember(0, 0);
-            for(int i = 0; i < a._polynomials.Count; i++)
-            {
-                if (!degress.Contains(a._polynomials[i].Degree))
+                if (a == null || b == null)
+                    throw new PolynomialArgumentNullException();
+                Polynomial polynomial = new Polynomial();
+                List<double> degress = new List<double>();
+
+                List<PolynomialMember> tmp = new List<PolynomialMember>();
+                for (int i = 0; i < b._polynomials.Count; i++)
                 {
-                    tmp.AddMember(a._polynomials[i]);
+                    tmp.Add(b._polynomials[i]);
                 }
-            }
-            ///Polynomial tmp = a._polynomials.Concat(b._polynomials);
-            ///var unq=tmp.ToArray().GroupBy(x=>x.Degree).Select(x=>x.First());
-            for(int i = 0; i < a._polynomials.Count; i++)
-            {
-                if (b._polynomials.Find(x => x.Degree.Equals(a._polynomials[i].Degree)) != null)
+                foreach (PolynomialMember member in b._polynomials)
                 {
-                    double coef = a._polynomials[i].Coefficient + b._polynomials.Find(x => x.Degree.Equals(a._polynomials[i].Degree)).Coefficient;
-                    double degre = 0;
-                    if (coef != 0)
+                    degress.Add(member.Degree);
+                }
+                for (int i = 0; i < a._polynomials.Count; i++)
+                {
+                    if (!degress.Contains(a._polynomials[i].Degree))
                     {
-                        polynomial.AddMember(new PolynomialMember(a._polynomials[i].Degree, coef));
-                    }
-                    else
-                    {
-                        polynomial.AddMember(new PolynomialMember(degre, coef));
+                        tmp.Add(a._polynomials[i]);
+                        degress.Add(a._polynomials[i].Degree);
                     }
                 }
 
+                for (int i = 0; i < a._polynomials.Count; i++)
+                {
+                    if (b._polynomials.Find(x => x.Degree.Equals(a._polynomials[i].Degree)) != null)
+                    {
+                        double coef = a._polynomials[i].Coefficient + b._polynomials.Find(x => x.Degree.Equals(a._polynomials[i].Degree)).Coefficient;
+                        if (coef != 0)
+                        {
+                            polynomial.AddMember(new PolynomialMember(a._polynomials[i].Degree, coef));
+                            tmp.RemoveAt(tmp.FindIndex(x => x.Degree == a._polynomials[i].Degree));
+                        }
+                        else
+                        {
+                            if (polynomial.Count == 0)
+                                polynomial.AddMember(new PolynomialMember(0, coef));
+                            tmp.RemoveAt(tmp.FindIndex(x => x.Degree == a._polynomials[i].Degree));
+                        }
+                    }
+                }
+                for (int i = 0; i < tmp.Count; i++)
+                {
+                    if (tmp[i].Coefficient == 0)
+                        tmp.RemoveAt(i);
+                }
+                for (int i = 0; i < tmp.Count; i++)
+                {
+                    polynomial.AddMember(tmp[i]);
+                }
+                polynomial._polynomials.RemoveAt(0);
+
+                return polynomial;
             }
-           /// _ = polynomial._polynomials.Concat(unq);
-           for(int i = 0; i < tmp.Count; i++)
+            catch (Exception)
             {
-                polynomial.AddMember(tmp._polynomials[i]);
+                throw new PolynomialArgumentNullException();
             }
-            polynomial._polynomials.RemoveAt(0);
-
-
-
-            ////_ = a._polynomials.OrderBy(x => x.Degree);
-            ////_ = b._polynomials.OrderBy(x => x.Degree);
-            ////a._polynomials.AddRange(b._polynomials);
-
-            ////int c = a._polynomials.Count;
-            ////if(b._polynomials.Count >c)c = b._polynomials.Count;
-            //int k = 0;
-            //for (int i = 0; i < a._polynomials.Count; i++)
-            //{
-            //    if (b._polynomials.Find(x => x.Degree.Equals(a._polynomials[i].Degree)) != null)
-            //    {
-            //        double coef = a._polynomials[i].Coefficient + b._polynomials.Find(x => x.Degree.Equals(a._polynomials[i].Degree)).Coefficient;
-            //        double degre = 0;
-            //        if (coef != 0)
-            //        {
-            //            polynomial.AddMember(new PolynomialMember(a._polynomials[i].Degree, coef));
-            //        }
-            //        else
-            //        {
-            //            polynomial.AddMember(new PolynomialMember(degre, coef));
-            //        }
-            //    }
-            //    else
-            //    {
-            //        polynomial.AddMember(a._polynomials[i]);
-            //        polynomial.AddMember(b._polynomials[i]);
-            //    }
-            //    k = i;
-            //}
-            //if (b._polynomials.Count != a._polynomials.Count)
-            //{
-            //    while (k != b._polynomials.Count)
-            //    {
-            //        polynomial.AddMember(b._polynomials[k]);
-            //        k++;
-            //    }
-            //}
-            ////polynomial._polynomials.InsertRange(k, b._polynomials);
-            //polynomial._polynomials.RemoveAt(0);
-            return polynomial;
-            //todo
-            ///throw new NotImplementedException();
         }
 
         /// <summary>
@@ -293,8 +218,46 @@ namespace PolynomialObject
         /// <exception cref="PolynomialArgumentNullException">Throws if either of provided polynomials is null</exception>
         public static Polynomial operator -(Polynomial a, Polynomial b)
         {
-            //todo
-            throw new NotImplementedException();
+            Polynomial polynomial = new Polynomial();
+
+            Polynomial p = new Polynomial();
+            p._polynomials.AddRange(a._polynomials);
+            p._polynomials.AddRange(b._polynomials);
+
+            List<PolynomialMember> tmp = new List<PolynomialMember>();
+            foreach (PolynomialMember item in p._polynomials)
+            {
+                if (!tmp.Any(x => x.Degree == item.Degree))
+                    tmp.Add(item);
+            }
+            foreach (var i in tmp.OrderBy(x => x.Degree).ToDictionary(x => x.Degree).Keys)
+            {
+                var ap = a._polynomials.FirstOrDefault(x => x.Degree == i);
+                var bp = b._polynomials.FirstOrDefault(x => x.Degree == i);
+                if (ap != null && bp != null)
+                {
+                    var coef = ap.Coefficient - bp.Coefficient;
+                    if (coef != 0)
+                        polynomial._polynomials.Add(new PolynomialMember(i, coef));
+                }
+                else if (ap != null && bp == null)
+                {
+                    var coef = ap.Coefficient;
+                    if (coef != 0)
+                        polynomial._polynomials.Add(new PolynomialMember(i, coef));
+                }
+                else if (ap == null && bp != null)
+                {
+                    var coef = -bp.Coefficient;
+                    if (coef != 0)
+                        polynomial._polynomials.Add(new PolynomialMember(i, coef));
+                }
+                else if (ap == null && bp == null) { }
+            }
+            if (polynomial._polynomials.Count > 1)
+                polynomial._polynomials.RemoveAt(0);
+            return polynomial;
+
         }
 
         /// <summary>
@@ -306,8 +269,37 @@ namespace PolynomialObject
         /// <exception cref="PolynomialArgumentNullException">Throws if either of provided polynomials is null</exception>
         public static Polynomial operator *(Polynomial a, Polynomial b)
         {
-            //todo
-            throw new NotImplementedException();
+            Polynomial polynomial = new Polynomial();
+            List<double> keys = new List<double>();
+            Polynomial t = new Polynomial();
+            for (int i = 0; i < a._polynomials.Count; i++)
+            {
+                for (int j = 0; j < b._polynomials.Count; j++)
+                {
+                    double key = a._polynomials[i].Degree + b._polynomials[j].Degree;
+                    double coef = a._polynomials[i].Coefficient * b._polynomials[j].Coefficient;
+                    if (!keys.Contains(key)) keys.Add(key);
+                    t.AddMember(
+                        new PolynomialMember(key, coef));
+                }
+            }
+            
+            foreach (var key in keys)
+            {
+                double coef = 0;
+                for (int j = 0; j < t._polynomials.Count; j++)
+                {
+                    if (t._polynomials[j].Degree == key)
+                        coef += t._polynomials[j].Coefficient;
+                }
+                polynomial._polynomials.Add(new PolynomialMember(key, coef));
+            }
+            for (int i = polynomial._polynomials.Count - 1; i >= 0; i--)
+            {
+                if (polynomial._polynomials[i].Coefficient == 0 && polynomial._polynomials.Count > 1)
+                    polynomial._polynomials.RemoveAt(i);
+            }
+            return polynomial;
         }
 
         /// <summary>
@@ -318,8 +310,9 @@ namespace PolynomialObject
         /// <exception cref="PolynomialArgumentNullException">Throws if provided polynomial is null</exception>
         public Polynomial Add(Polynomial polynomial)
         {
-            //todo
-            throw new NotImplementedException();
+            if (polynomial == null)
+                throw new PolynomialArgumentNullException();
+            return this + polynomial;
         }
 
         /// <summary>
@@ -330,8 +323,9 @@ namespace PolynomialObject
         /// <exception cref="PolynomialArgumentNullException">Throws if provided polynomial is null</exception>
         public Polynomial Subtraction(Polynomial polynomial)
         {
-            //todo
-            throw new NotImplementedException();
+            //if (polynomial == null)
+            //    throw new PolynomialArgumentNullException();
+            return this - polynomial;
         }
 
         /// <summary>
@@ -342,8 +336,9 @@ namespace PolynomialObject
         /// <exception cref="PolynomialArgumentNullException">Throws if provided polynomial is null</exception>
         public Polynomial Multiply(Polynomial polynomial)
         {
-            //todo
-            throw new NotImplementedException();
+            //if (polynomial == null)
+            //    throw new PolynomialArgumentNullException();
+            return this * polynomial;
         }
 
         /// <summary>
@@ -390,6 +385,7 @@ namespace PolynomialObject
         public Polynomial Add((double degree, double coefficient) member)
         {
             //todo
+            return this + member;
             throw new NotImplementedException();
         }
 
@@ -401,6 +397,7 @@ namespace PolynomialObject
         public Polynomial Subtraction((double degree, double coefficient) member)
         {
             //todo
+            return this - member;
             throw new NotImplementedException();
         }
 
@@ -412,6 +409,7 @@ namespace PolynomialObject
         public Polynomial Multiply((double degree, double coefficient) member)
         {
             //todo
+            return this * member;
             throw new NotImplementedException();
         }
     }

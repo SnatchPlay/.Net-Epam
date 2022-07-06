@@ -2,156 +2,295 @@ using System;
 
 namespace MatrixLibrary
 {
-    // TODO: Create custom exception "MatrixException"
-    
+#pragma warning disable S3925 // "ISerializable" should be implemented correctly
+#pragma warning disable S3928 // Parameter names used into ArgumentException constructors should match an existing one
+#pragma warning disable S112 // General exceptions should never be thrown
+#pragma warning disable S3249 // Classes directly extending "object" should not call "base" in "GetHashCode" or "Equals"
+    public class MatrixException : Exception
+    {
+        public MatrixException() : base() { }
+    }
+
     public class Matrix : ICloneable
     {
-        /// <summary>
-        /// Number of rows.
-        /// </summary>
+        readonly int rows;
+        readonly int columns;
+        readonly double[,] matrix;
         public int Rows
         {
-            get => throw new NotImplementedException();
+            get => rows;
         }
 
-        /// <summary>
-        /// Number of columns.
-        /// </summary>
         public int Columns
         {
-            get => throw new NotImplementedException();
+            get => columns;
         }
-        
-        /// <summary>
-        /// Gets an array of floating-point values that represents the elements of this Matrix.
-        /// </summary>
+
         public double[,] Array
         {
-            get => throw new NotImplementedException();
+            get => matrix;
         }
-        
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Matrix"/> class.
-        /// </summary>
-        /// <param name="rows"></param>
-        /// <param name="columns"></param>
-        /// <exception cref="ArgumentOutOfRangeException"></exception>
+
         public Matrix(int rows, int columns)
         {
-            throw new NotImplementedException();
+            try
+            {
+                this.rows = rows;
+                this.columns = columns;
+                matrix = new double[rows, columns];
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < columns; j++)
+                    {
+                        matrix[i, j] = 0;
+                    }
+                }
+            }
+            catch
+            {
+                throw new ArgumentOutOfRangeException();
+            }
         }
 
-        /// <summary>
-        /// Initializes a new instance of the <see cref="Matrix"/> class with the specified elements.
-        /// </summary>
-        /// <param name="array">An array of floating-point values that represents the elements of this Matrix.</param>
-        /// <exception cref="ArgumentNullException"></exception>
         public Matrix(double[,] array)
         {
-            throw new NotImplementedException();
+            try
+            {
+                rows = array.GetLength(0);
+                columns = array.GetLength(1);
+                matrix = array;
+            }
+            catch
+            {
+                throw new ArgumentNullException();
+            }
         }
 
-        /// <summary>
-        /// Allows instances of a Matrix to be indexed just like arrays.
-        /// </summary>
-        /// <param name="row"></param>
-        /// <param name="column"></param>
-        /// <exception cref="ArgumentException"></exception>
         public double this[int row, int column]
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get
+            {
+                try { return matrix[row, column]; }
+                catch { throw new ArgumentException(); }
+            }
+            set
+            {
+                try { matrix[row, column] = value; }
+                catch { throw new ArgumentException(); }
+            }
         }
 
-        /// <summary>
-        /// Creates a deep copy of this Matrix.
-        /// </summary>
-        /// <returns>A deep copy of the current object.</returns>
         public object Clone()
         {
-            throw new NotImplementedException();
+            Matrix m = new Matrix(matrix);
+            return m;
         }
 
-        /// <summary>
-        /// Adds two matrices.
-        /// </summary>
-        /// <param name="matrix1"></param>
-        /// <param name="matrix2"></param>
-        /// <returns>New <see cref="Matrix"/> object which is sum of two matrices.</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="MatrixException"></exception>
         public static Matrix operator +(Matrix matrix1, Matrix matrix2)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (matrix1 == null || matrix2 == null)
+                    throw new Exception("null");
+                if (matrix1.rows != matrix2.rows || matrix1.columns != matrix2.columns)
+                    throw new Exception("mx");
+                Matrix matrix3 = new Matrix(matrix1.rows, matrix2.columns);
+                for (int i = 0; i < matrix3.rows; i++)
+                {
+                    for (int j = 0; j < matrix3.columns; j++)
+                    {
+                        matrix3[i, j] = matrix1[i, j] + matrix2[i, j];
+                    }
+                }
+                return matrix3;
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "null")
+                    throw new ArgumentNullException();
+                else if (e.Message == "mx")
+                    throw new MatrixException();
+                else
+                    throw new Exception();
+            }
         }
 
-        /// <summary>
-        /// Subtracts two matrices.
-        /// </summary>
-        /// <param name="matrix1"></param>
-        /// <param name="matrix2"></param>
-        /// <returns>New <see cref="Matrix"/> object which is subtraction of two matrices</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="MatrixException"></exception>
         public static Matrix operator -(Matrix matrix1, Matrix matrix2)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (matrix1 == null || matrix2 == null)
+                {
+                    throw new Exception("null");
+                }
+                if (matrix1.rows != matrix2.rows || matrix1.columns != matrix2.columns)
+                    throw new Exception("mx");
+                Matrix matrix3 = new Matrix(matrix1.rows, matrix2.columns);
+                for (int i = 0; i < matrix3.rows; i++)
+                {
+                    for (int j = 0; j < matrix3.columns; j++)
+                    {
+                        matrix3[i, j] = matrix1[i, j] - matrix2[i, j];
+                    }
+                }
+                return matrix3;
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "null")
+                    throw new ArgumentNullException();
+                else if (e.Message == "mx")
+                    throw new MatrixException();
+                else
+                    throw new Exception();
+            }
         }
 
-        /// <summary>
-        /// Multiplies two matrices.
-        /// </summary>
-        /// <param name="matrix1"></param>
-        /// <param name="matrix2"></param>
-        /// <returns>New <see cref="Matrix"/> object which is multiplication of two matrices.</returns>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="MatrixException"></exception>
         public static Matrix operator *(Matrix matrix1, Matrix matrix2)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (matrix1 == null || matrix2 == null)
+                    throw new Exception("null");
+                if (matrix1.columns != matrix2.rows)
+                    throw new Exception("mx");
+                Matrix matrix3 = new Matrix(matrix1.rows, matrix2.columns);
+                for (int i = 0; i < matrix3.rows; i++)
+                {
+                    for (int j = 0; j < matrix3.columns; j++)
+                    {
+                        matrix3[i, j] = 0;
+                        for (int k = 0; k < matrix1.columns; k++)
+                        {
+                            matrix3[i, j] += matrix1[i, k] * matrix2[k, j];
+                        }
+                    }
+                }
+                return matrix3;
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "null")
+                    throw new ArgumentNullException();
+                else if (e.Message == "mx")
+                    throw new MatrixException();
+                else
+                    throw new Exception();
+            }
         }
 
-        /// <summary>
-        /// Adds <see cref="Matrix"/> to the current matrix.
-        /// </summary>
-        /// <param name="matrix"><see cref="Matrix"/> for adding.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="MatrixException"></exception>
         public Matrix Add(Matrix matrix)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (this.matrix == null || matrix == null)
+                {
+                    throw new Exception("null");
+                }
+                if (rows != matrix.rows || columns != matrix.columns)
+                    throw new Exception("mx");
+                Matrix matrix3 = new Matrix(this.rows, matrix.columns);
+                for (int i = 0; i < matrix3.rows; i++)
+                {
+                    for (int j = 0; j < matrix3.columns; j++)
+                    {
+                        matrix3[i, j] = this.matrix[i, j] + matrix[i, j];
+                    }
+                }
+                return matrix3;
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "null")
+                    throw new ArgumentNullException();
+                else if (e.Message == "mx")
+                    throw new MatrixException();
+                else
+                    throw new Exception();
+            }
         }
 
-        /// <summary>
-        /// Subtracts <see cref="Matrix"/> from the current matrix.
-        /// </summary>
-        /// <param name="matrix"><see cref="Matrix"/> for subtracting.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="MatrixException"></exception>
         public Matrix Subtract(Matrix matrix)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (this.matrix == null || matrix == null)
+                    throw new Exception("null");
+                if (rows != matrix.rows || columns != matrix.columns)
+                    throw new Exception("mx");
+                Matrix matrix3 = new Matrix(rows, matrix.columns);
+                for (int i = 0; i < matrix3.rows; i++)
+                {
+                    for (int j = 0; j < matrix3.columns; j++)
+                    {
+                        matrix3[i, j] = this.matrix[i, j] - matrix[i, j];
+                    }
+                }
+                return matrix3;
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "null")
+                    throw new ArgumentNullException();
+                else if (e.Message == "mx")
+                    throw new MatrixException();
+                else
+                    throw new Exception();
+            }
         }
 
-        /// <summary>
-        /// Multiplies <see cref="Matrix"/> on the current matrix.
-        /// </summary>
-        /// <param name="matrix"><see cref="Matrix"/> for multiplying.</param>
-        /// <exception cref="ArgumentNullException"></exception>
-        /// <exception cref="MatrixException"></exception>
         public Matrix Multiply(Matrix matrix)
         {
-            throw new NotImplementedException();
+            try
+            {
+                if (columns != matrix.rows)
+                {
+                    throw new Exception("mx");
+                }
+                Matrix matrix3 = new Matrix(rows, matrix.columns);
+                for (int i = 0; i < matrix3.rows; i++)
+                {
+                    for (int j = 0; j < matrix3.columns; j++)
+                    {
+                        matrix3[i, j] = 0;
+                        for (int k = 0; k < columns; k++)
+                        {
+                            matrix3[i, j] += this.matrix[i, k] * matrix[k, j];
+                        }
+                    }
+                }
+                return matrix3;
+            }
+            catch (Exception e)
+            {
+                if (e.Message == "mx")
+                    throw new MatrixException();
+                else
+                    throw new ArgumentNullException();
+            }
         }
 
-        /// <summary>
-        /// Tests if <see cref="Matrix"/> is identical to this Matrix.
-        /// </summary>
-        /// <param name="obj">Object to compare with. (Can be null)</param>
-        /// <returns>True if matrices are equal, false if are not equal.</returns>
         public override bool Equals(object obj)
         {
-            throw new NotImplementedException();
+            try
+            {
+                Matrix matrix2 = (Matrix)obj;
+                if (rows != matrix2.rows || columns != matrix2.columns)
+                    return false;
+                for (int i = 0; i < rows; i++)
+                {
+                    for (int j = 0; j < columns; j++)
+                    {
+                        if (matrix[i, j] != matrix2[i, j])
+                            return false;
+                    }
+                }
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
         }
 
         public override int GetHashCode() => base.GetHashCode();

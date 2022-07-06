@@ -60,8 +60,18 @@ namespace Interfaces
         }
         public int CountPossibleToProlongDeposit()
         {
-            int k = (deposits.OfType<LongDeposit>().Where(deposit => deposit.CanToProlong())).Count();
-            k += (deposits.OfType<SpecialDeposit>().Where(deposit => deposit.CanToProlong())).Count();
+            int k = 0;
+            foreach (LongDeposit item in deposits.OfType<LongDeposit>())
+            {
+                if (item.CanToProlong()) { k++; }
+            }
+            foreach (SpecialDeposit item in deposits.OfType<SpecialDeposit>())
+            {
+                if (item.CanToProlong()) { k++; }
+            }
+
+            //int k = (deposits.OfType<LongDeposit>().Where(deposit => deposit.CanToProlong())).Count();
+            //k += (deposits.OfType<SpecialDeposit>().Where(deposit => deposit.CanToProlong())).Count();
             return k;
         }
 

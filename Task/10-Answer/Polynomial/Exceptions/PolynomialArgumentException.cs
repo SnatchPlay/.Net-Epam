@@ -6,8 +6,8 @@ namespace PolynomialObject.Exceptions
     public class PolynomialArgumentException : Exception
     {
 
-        public PolynomialArgumentException() { }
+        public PolynomialArgumentException() : base() { }
 
-        public PolynomialArgumentException(string message) { }
+        public PolynomialArgumentException(string message) : base(message) { }
     }
 }
