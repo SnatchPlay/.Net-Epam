@@ -334,12 +334,6 @@ namespace PolynomialObject
             }
         }
 
-        
-
-        
-
-        
-
         public static Polynomial operator +(Polynomial a, (double degree, double coefficient) b)
         {
             Polynomial babayko = new Polynomial(b);
@@ -361,6 +355,6 @@ namespace PolynomialObject
         }
 
 
-        
+
     }
 }

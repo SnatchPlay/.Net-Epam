@@ -1,109 +1,124 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace CustomArray
 {
     public class CustomArray<T> : IEnumerable<T>
     {
-        /// <summary>
-        /// Should return first index of array
-        /// </summary>
-        public int First 
-        { 
-            get=> throw new NotImplementedException();
-            private set=>throw new NotImplementedException() ;
+        private int length;
+        readonly T[] array;
+        private int first;
+
+        public int First
+        {
+            get
+            {
+                return first;
+            }
+            private set
+            {
+                first = value;
+            }
         }
 
-        /// <summary>
-        /// Should return last index of array
-        /// </summary>
-        public int Last 
-        { 
-            get=> throw new NotImplementedException(); 
+        public int Last
+        {
+            get => first + length -1;
         }
 
-        /// <summary>
-        /// Should return length of array
-        /// <exception cref="ArgumentException">Thrown when value was smaller than 0</exception>
-        /// </summary>
-        public int Length 
-        {   
-            get=>throw new NotImplementedException(); 
-            private set=> throw new NotImplementedException();
+        public int Length
+        {
+            get => length;
+            private set
+            {
+                if (value < 0)
+                {
+                    throw new ArgumentException("length");
+                }
+                length = value;
+            }
         }
 
-        /// <summary>
-        /// Should return array 
-        /// </summary>
         public T[] Array
-        { 
-            get=>throw new NotImplementedException(); 
+        {
+            get => array;
         }
 
+        private int Len(IEnumerable<T> list)
+        {
+            int res = 0;
+            using (var enumerator = list.GetEnumerator())
+            {
+                while (enumerator.MoveNext())
+                    res++;
+            }
+            return res;
+        }
 
-        /// <summary>
-        /// Constructor with first index and length
-        /// </summary>
-        /// <param name="first">First Index</param>
-        /// <param name="length">Length</param>         
         public CustomArray(int first, int length)
         {
-            throw new NotImplementedException();
+            if (length <= 0)
+                throw new ArgumentException("CustomArray");
+            this.first = first;
+            this.length = length;
+            array = new T[length];
         }
 
-
-        /// <summary>
-        /// Constructor with first index and collection  
-        /// </summary>
-        /// <param name="first">First Index</param>
-        /// <param name="list">Collection</param>
-        ///  <exception cref="NullReferenceException">Thrown when list is null</exception>
-        /// <exception cref="ArgumentException">Thrown when count is smaler than 0</exception>
         public CustomArray(int first, IEnumerable<T> list)
         {
-            throw new NotImplementedException();
+            if (list == null)
+                throw new NullReferenceException();
+            if (Len(list) <= 0)
+                throw new ArgumentException("CustomArray");
+            this.first = first;
+            this.length = Len(list);
+            array = new T[length];
+            array = list.ToArray<T>();
         }
 
-        /// <summary>
-        /// Constructor with first index and params
-        /// </summary>
-        /// <param name="first">First Index</param>
-        /// <param name="list">Params</param>
-        ///  <exception cref="ArgumentNullException">Thrown when list is null</exception>
-        /// <exception cref="ArgumentException">Thrown when list without elements </exception>
         public CustomArray(int first, params T[] list)
         {
-            throw new NotImplementedException();
+            if (list == null)
+                throw new ArgumentNullException("list");
+            if (Len(list) <= 0)
+                throw new ArgumentException("CustomArray");
+            this.first = first;
+            this.length = Len(list);
+            array = new T[length];
+            array = list;
         }
 
-        /// <summary>
-        /// Indexer with get and set  
-        /// </summary>
-        /// <param name="item">Int index</param>        
-        /// <returns></returns>
-        /// <exception cref="ArgumentException">Thrown when index out of array range</exception> 
-        /// <exception cref="ArgumentNullException">Thrown in set  when value passed in indexer is null</exception>
         public T this[int item]
         {
             get
             {
-                throw new NotImplementedException();
+                if (item < First || item > Last) 
+                    throw new ArgumentException("get");
+                return array[item - first];
             }
             set
             {
-                throw new NotImplementedException();
+                if (item < First || item > Last)
+                    throw new ArgumentException("set");
+                if (value == null)
+                    throw new ArgumentNullException("item");
+                array[item - first] = value;
             }
         }
 
         public IEnumerator<T> GetEnumerator()
         {
-            throw new NotImplementedException();
+            for (int i = 0; i < array.Length; i++)
+            {
+                yield return array[i];
+            }
         }
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (IEnumerator)GetEnumerator();
         }
     }
 }
