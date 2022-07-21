@@ -1,0 +1,433 @@
+.ourworkblock {
+    align-content: center;
+    display: inline-block;
+    background: #de2b24;
+    height: 100%;
+    width: 100%;
+    height: 100%;
+    width: 100%;
+    text-align: center;
+    padding-bottom:10%;
+}
+h1 {
+    padding-top:8%;
+    margin:0;
+    font-family: 'HelveticaNeue';
+    font-weight:700;
+    font-size: 36px;
+    text-align: center;
+    line-height:40px;
+}
+h4 {
+    margin: 0;
+    text-align: center;
+    font-family: 'HelveticaNeue';
+    font-size: 36px;
+    font-weight: 100;
+    line-height: 26px;
+}
+
+hr {
+    align-content: center;
+    background: white;
+    width: 3.57%;
+    height: 0.9%;
+    margin-top:1%;
+    margin-bottom: 3%;
+}
+body {
+    margin: 0;
+    padding: 0;
+
+}
+.examples {
+    display: inline-block;
+    width: 70%;
+    height: 60%;
+    margin: 0 15% 0 15%;
+    padding: 0 0 0 0;
+}
+#img1 {
+    background-image: url(/img/photo1.jpg);
+    background-repeat: no-repeat;
+    background-size:revert;
+    background-position:top ;
+    float: left;
+    width: 25%;
+    height: 50%;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+#img1:hover{
+    transform:scale(1.5);
+}
+#img2:hover {
+    transform: scale(1.5);
+}
+#img3:hover {
+    transform: scale(1.5);
+}
+#img4:hover {
+    transform: scale(1.5);
+}
+#img2 {
+    background-image: url(/img/photo3.png);
+    background-repeat:no-repeat;
+    background-size:cover;
+    background-position: top;
+    float: left;
+    width: 25%;
+    height: 50%;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+#img3 {
+    background-image: url(/img/photo5.jpg);
+    background-repeat: no-repeat;
+    background-size: revert;
+    background-position: top;
+    float: left;
+    width: 25%;
+    height: 50%;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+#img4 {
+    background-image: url(/img/photo7.jpg);
+    background-repeat: no-repeat;
+    background-size: revert;
+    background-position: top;
+    float: left;
+    width: 25%;
+    height: 50%;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+.item {
+
+    align-content:center;
+    float: left;
+    background-color: #F35E59;
+    width: 25%;
+    height: 50%;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+.portfolio{
+    margin-top:30.078125%;
+}
+.bigportfoliotext {
+    font-family: 'HelveticaNeue';
+    font-weight: 900;
+    font-size: 26px;
+    text-align: center;
+    line-height: 21px;
+    margin-bottom: 0;
+    transition: transform .2s;
+}
+    .bigportfoliotext:hover {
+        transform: scale(1.5);
+    }
+.smallportfoliotext {
+    margin-top: 0;
+    font-family: 'HelveticaNeue';
+    font-weight: 900;
+    font-size: 17px;
+    text-align: center;
+    line-height: 0px;
+}
+/*BLUE CHAPTER*/
+
+.bluechapter {
+    position: relative;
+    background: #1287BF;
+    height: 100%;
+    width: 100%;
+    align-content: center;
+    text-align: center;
+    display: block;
+    padding-bottom:10%;
+}
+.backwhite {
+    text-align:center;
+    display:inline-block;
+    width: 50%;
+    height: 56.5%;
+    margin-bottom: 8%;
+    margin-left: 25%;
+    margin-right: 25%;
+    background:unset;
+    align-content:center;
+}
+.whiteform {
+
+ 
+    background-color: white;
+    width:99%;
+    height:99%;
+    
+}
+#triangle {
+    position:center;
+    
+    margin-left:45%;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 2.36em 2em 2.36em;
+    border-color: transparent transparent white transparent;
+}
+#closeicon {
+    
+    text-align:center;
+    margin-left:72.5%;
+    margin-top:0.7%;
+    position:absolute;
+    width: 48px;
+    height: 48px;
+    background: #DE2B24;
+    
+    
+    border:5px solid white;
+    border-radius: 50%;
+}
+    #closeicon:hover {
+        background: #A71B16;
+    }
+.bigbluetext {
+    padding-top: 8%;
+    margin: 0;
+    font-family: 'HelveticaNeue';
+    font-weight: 700;
+    font-size: 36px;
+    text-align: center;
+    line-height: 40px;
+    color:white;
+}
+.smallbluetext {
+    margin: 0;
+    text-align: center;
+    font-family: 'HelveticaNeue';
+    font-size: 19px;
+    font-weight: 100;
+    line-height: 26px;
+    color:white;
+    margin-bottom:1%;
+}
+#checkmarkcircle {
+    margin-bottom:1.5%;
+    margin-left:47.8%;
+    position: relative;
+    border-radius: 50%;
+    border: 2px solid white;
+    width: 4em;
+    height: 4em;
+}
+#checkmark {
+    position: absolute;
+    transform: rotate(45deg) translate(-50%, -50%);
+    left: 35%;
+    top: 45%;
+    height: 1.6em;
+    width: 1em;
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+}
+/*Forms*/
+#formstext {
+    
+    margin-left:4%;
+    margin-top:2.5%;
+    margin-bottom:2.5%;
+    position:absolute;
+    color: #828282;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size:18px;
+    line-height:22px;
+    
+}
+input[type=text], input[type=tel] {
+    width: 60%;
+    height:10%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    transition: 0.5s;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: 1px solid grey;
+    font-family: 'HelveticaNeue';
+    /*font-weight: 900;*/
+    font-size: 15px;
+}
+
+input[type=submit] {
+    width: 30%;
+    background-color: #DE2B24;
+    color: white;
+    padding: 2% 3%;
+    margin: 1% 5%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family:'HelveticaNeue';
+    font-weight:900;
+    font-size:15px;
+}
+
+    input[type=submit]:hover {
+        background-color: #45a049;
+    }
+    input[type=text]:focus {
+        border: 2px solid #1287bf;
+    }
+    input[type=tel]:focus {
+        border: 2px solid #1287bf;
+    }
+    #whiteform{
+        padding-top:15%;
+        
+    
+    }
+    /*Get in touch*/
+.getintouch {
+    position: relative;
+    background: #2A2A2A;
+    height: 40%;
+    width: 100%;
+    align-content: center;
+    text-align: center;
+    display: block;
+    padding-bottom: 10%;
+}
+.pictograms{
+    margin-top:3%;
+    display:inline-block;
+    height:60px;
+    width:300px;
+
+}
+
+#fbpic {
+    background-image: url(/img/icon8.png);
+    background-repeat: no-repeat;
+    background-size: inherit;
+    background-position: center;
+    width: 48px;
+    height: 48px;
+    border: 3px solid #515151;
+    margin: 0 2.5% 0 2.5%;
+    float:left;
+}
+    #fbpic:hover {
+        border: 3px solid red;
+    }
+#linpic {
+    background-image: url(/img/icon11.png);
+    background-repeat: no-repeat;
+    background-size: inherit;
+    background-position: center;
+    width: 48px;
+    height: 48px;
+    border: 3px solid #515151;
+    margin: 0 2.5% 0 2.5%;
+    float: left;
+}
+#linpic:hover {
+    border: 3px solid red;
+}
+#gpic {
+    background-image: url(/img/icon10.png);
+    background-repeat: no-repeat;
+    background-size: inherit;
+    background-position: center;
+    width: 48px;
+    height: 48px;
+    border: 3px solid #515151;
+    margin: 0 2.5% 0 2.5%;
+    float: left;
+}
+#gpic:hover {
+    border: 3px solid red;
+}
+#twpic {
+    background-image: url(/img/icon9.png);
+    background-repeat: no-repeat;
+    background-size: inherit;
+    background-position: center;
+    width: 48px;
+    height: 48px;
+    border: 3px solid #515151;
+    margin: 0 2.5% 0 2.5%;
+    float: left;
+}
+#twpic:hover {
+    border: 3px solid red;
+}
+h2 {
+    padding-top: 7%;
+    margin: 0;
+    font-family: 'HelveticaNeue';
+    font-weight: 900;
+    font-size: 29px;
+    text-align: center;
+    line-height: 40px;
+    color:white;
+}
+h6 {
+    padding-top: 2%;
+    margin: 0;
+    font-family: 'Open Sans';
+    font-weight: 900;
+    font-size: 14px;
+    text-align: center;
+    color: #CECECE;
+}
+
+input[type=button] {
+    width: 10%;
+    text-align:center;
+    background-color:transparent;
+    padding:1% 0.2% 1% 0.2%;
+    margin: 1% 40%;
+    border: 3px solid #515151;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'HelveticaNeue';
+    font-weight: 900;
+    font-size: 15px;
+    color:white;
+}
+input[type=email] {
+    width: 40%;
+    height: 15%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    transition: 0.5s;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #515151;
+    
+    font-family: 'HelveticaNeue';
+    color: #cecece;
+    
+   
+    font-size: 15px;
+}
+    input[type=email]::placeholder {
+        color: #cecece;
+    }
+
+input[type=button]:hover {
+    background-color: grey;
+}
+
+footer {
+    
+    height:8%;
+    background-color: #515151;
+    text-align:center;
+}
