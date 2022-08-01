@@ -1,0 +1,647 @@
+@import url('https://fonts.cdnfonts.com/css/helvetica-neue-9');
+@import url('https://db.onlinewebfonts.com/c/0e6de1ec911a2e267ff136bbdd384a44?family=Helvetica+Neue');
+
+body {
+    display: grid;
+    grid-template-rows: 45% 35% 18% 2%;
+    margin: 0;
+    padding: 0;
+
+    font-size: 40px;
+}
+
+.redblock {
+    display: grid;
+    background-color: #de2b24;
+    grid-template-columns: 2fr 6fr 6fr 2fr;
+    grid-template-rows: 1fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 2fr 1fr;
+    grid-column: 1;
+    grid-row: 1;
+}
+
+#bigredtext {
+    padding-top: 8%;
+    margin: 0;
+    font-family: 'Helvetica Neue';
+    color: white;
+    font-weight: bold;
+    font-size: 100%;
+    text-align: center;
+    line-height: 40px;
+    grid-column: 2/4;
+}
+
+hr {
+    align-content: center;
+    background: white;
+    width: 15%;
+    height: 2.5%;
+    margin-top: 5%;
+    margin-bottom: 10%;
+}
+
+h4 {
+    margin: 0;
+    text-align: center;
+    color: white;
+    font-family: 'Helvetica Neue 9';
+    font-size: 80%;
+    font-weight: 100;
+    line-height: 80%;
+    overflow-wrap: normal;
+}
+
+.examples {
+    display: grid;
+    grid-template-columns: 100%;
+    grid-template-rows: repeat(8,1fr);
+    grid-row: 2/10;
+    grid-column: 2/4;
+}
+#item1{
+    display: grid;
+    grid-template-rows: 0.2fr 0.5fr 0.4fr;
+    justify-items: center;
+    justify-content: space-around;
+    background-color: #F35E59;
+    margin: 0;
+    padding: 0;
+    grid-row: 1;
+    
+}
+#item2{
+    display: grid;
+    grid-template-rows: 0.2fr 0.5fr 0.4fr;
+    justify-items: center;
+    justify-content: space-around;
+    background-color: #F35E59;
+    margin: 0;
+    padding: 0;
+    grid-row: 3;
+    
+}
+#item3{
+    display: grid;
+    grid-template-rows: 0.2fr 0.5fr 0.4fr;
+    justify-items: center;
+    justify-content: space-around;
+    background-color: #F35E59;
+    margin: 0;
+    padding: 0;
+    grid-row: 5;
+}
+#item4{
+    display: grid;
+    grid-template-rows: 0.2fr 0.5fr 0.4fr;
+    justify-items: center;
+    justify-content: space-around;
+    background-color: #F35E59;
+    margin: 0;
+    padding: 0;
+    grid-row: 7;
+}
+/* .item {
+    display: grid;
+    grid-template-rows: 0.2fr 0.5fr 0.4fr;
+    justify-items: center;
+    justify-content: space-around;
+    background-color: #F35E59;
+    margin: 0;
+    padding: 0;
+} */
+
+.portfolio {
+
+    grid-row: 2;
+    margin-top: 15%;
+    width:25%;
+}
+
+.bigportfoliotext {
+    font-family: 'Helvetica Neue';
+    font-weight: bold;
+    font-size: 90%;
+    text-align: center;
+    line-height: 100%;
+    margin-bottom: 0;
+    transition: transform .2s;
+    color: white;
+    grid-row: 3;
+}
+
+.bigportfoliotext:hover {
+    transform: scale(1.2);
+}
+
+.smallportfoliotext {
+    margin-top: 4%;
+    font-family: 'Helvetica Neue 9';
+    font-weight: 500;
+    font-size: 70%;
+    line-height: 80%;
+    text-align: center;
+    color: white;
+    overflow-wrap: normal;
+
+}
+
+.example-photo {
+    overflow-x: clip;
+    object-position: left;
+    object-fit: fill;
+}
+
+.example-photo>img {
+    object-fit: fill;
+}
+
+#img1 {
+    background-image: url(../img/photo1.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    grid-row: 2;
+    margin: 0;
+    padding: 0;
+
+}
+
+#img2 {
+    background-image: url(../img/photo3.png);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    grid-row: 4;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+#img3 {
+    background-image: url(../img/photo5.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    grid-row: 6;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+#img4 {
+    background-image: url(../img/photo7.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: top;
+    grid-row: 8;
+    margin: 0 0 0 0;
+    padding: 0 0 0 0;
+}
+
+#img1:hover {
+    margin-top: 22%;
+    width:auto;
+    background-size: contain;
+    transform: scale(1.5);
+}
+
+#img2:hover {
+    margin-top: 22%;
+    width:auto;
+    background-size: contain;
+    transform: scale(1.5);
+}
+
+#img3:hover {
+    margin-top: 22%;
+    width:auto;
+    background-size: contain;
+    transform: scale(1.5);
+}
+
+#img4:hover {
+    margin-top: 22%;
+    width:auto;
+    background-size: contain;
+    transform: scale(1.5);
+}
+
+/*BLUE CHAPTER*/
+.bluechapter {
+    display: grid;
+    grid-row: 2;
+    grid-column: 1;
+    background: #1287BF;
+    grid-template-rows: 0.3fr 0.3fr 0.15fr 0.1fr 2fr 0.5fr;
+    justify-items: center;
+}
+
+.backwhite {
+    align-items: center;
+    text-align: center;
+    width: 90%;
+    /* margin-bottom: 8%; */
+    background: unset;
+    align-content: center;
+    grid-row: 5;
+}
+
+#tmp {
+    display: grid;
+    justify-items: end;
+    grid-template-columns: 100%;
+    grid-template-rows: 100%;
+    margin-right: -7%;
+}
+
+.whiteform {
+    align-items: center;
+    display: grid;
+    grid-template-rows: 0.5fr 2fr 0.5fr 3fr 0.5fr;
+    grid-template-columns: 100%;
+    /* gap: 10%; */
+    justify-content: center;
+    background-color: white;
+    width: 99%;
+    height: 90%;
+    border-radius: 4px;
+    align-content: center;
+    justify-items: center;
+}
+
+#triangle {
+    position: center;
+    width: 0;
+    height: 0;
+    border-style: solid;
+    border-width: 0 2em 1.5em 2em;
+    border-color: transparent transparent white transparent;
+    grid-row: 4;
+
+}
+
+#closeicon {
+    
+    text-align: center;
+    margin-left: 90%;
+    /* margin-bottom: 50%; */
+    position: absolute;
+    width: 48px;
+    height: 48px;
+    background: #DE2B24;
+    border: 5px solid white;
+    border-radius: 50%;
+    grid-row: 1;
+    grid-column: 1;
+    color: white;
+    font-family: 'Helvetica Neue';
+}
+
+#closeicon:hover {
+    background: #A71B16;
+}
+
+.bigbluetext {
+    padding-top: 8%;
+    margin: 0;
+    font-family: 'Helvetica Neue';
+    font-weight: 700;
+    font-size: 70%;
+    text-align: center;
+    line-height: 100%;
+    color: white;
+    grid-row: 2;
+}
+
+.smallbluetext {
+    margin: 0;
+    text-align: center;
+    font-family: 'Helvetica Neue 9';
+    font-size: 90%;
+    font-weight: 100;
+    line-height: 100%;
+    color: white;
+    margin-bottom: 1%;
+    grid-row: 2;
+}
+
+#checkmarkcircle {
+    margin-bottom: 1.5%;
+    position: relative;
+    border-radius: 50%;
+    border: 2px solid white;
+    width:4ex;
+    height: 4ex;
+    grid-row: 3;
+}
+
+#checkmark {
+    position: absolute;
+    transform: rotate(45deg) translate(-50%, -50%);
+    left: 35%;
+    top: 45%;
+    height: 1.6ex;
+    width: 1.2ex;
+    border-bottom: 2px solid white;
+    border-right: 2px solid white;
+}
+
+/*Forms*/
+#formstext {
+    color: #828282;
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 65%;
+    line-height: 100%;
+    overflow-wrap: normal;
+    width: 80%;
+    grid-row: 2;
+}
+
+.whiteform>form {
+    grid-row: 4;
+}
+
+input[type=text],
+input[type=tel] {
+    width: 60%;
+    height: 50%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    transition: 0.5s;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    outline: 1px solid grey;
+    font-family: 'HelveticaNeue';
+    font-size: 55%;
+}
+
+input[type=submit] {
+    width: 70%;
+    height: 3em;
+    background-color: #DE2B24;
+    color: white;
+    margin: 1% 5%;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'HelveticaNeue';
+    font-weight: 900;
+    font-size: 55%;
+}
+
+input[type=submit]:hover {
+    background-color: #45a049;
+}
+
+input[type=text]:focus {
+    border: 2px solid #1287bf;
+}
+
+input[type=tel]:focus {
+    border: 2px solid #1287bf;
+}
+
+/*Get in touch*/
+.getintouch {
+    background: #2A2A2A;
+    width: 100%;
+    /* row-gap: 5%; */
+    grid-template-rows: 1fr 2fr 0.5fr 2fr 0.5fr;
+    align-items: center;
+    align-content: center;
+    text-align: center;
+    display: grid;
+    justify-items: center;
+    /* padding-bottom: 10%; */
+}
+
+.pictograms {
+    
+    display: grid;
+    grid-template-columns: repeat(4,1fr);
+    
+    column-gap: 5%;
+    height: 40%;
+    width: 45%;
+}
+
+#fbpic {
+    background-image: url(../img/icon8.png);
+    background-repeat: no-repeat;
+    background-size:40%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #515151;
+}
+
+#fbpic:hover {
+    border: 3px solid red;
+}
+
+#linpic {
+    background-image: url(../img/icon11.png);
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #515151;
+
+}
+
+#linpic:hover {
+    border: 3px solid red;
+}
+
+#gpic {
+    background-image: url(../img/icon10.png);
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #515151;
+
+}
+
+#gpic:hover {
+    border: 3px solid red;
+}
+
+#twpic {
+    background-image: url(../img/icon9.png);
+    background-repeat: no-repeat;
+    background-size: 40%;
+    background-position: center;
+    width: 100%;
+    height: 100%;
+    border: 3px solid #515151;
+
+}
+
+#twpic:hover {
+    border: 3px solid red;
+}
+
+h2 {
+    padding-top: 5%;
+    margin: 0;
+    font-family: 'Helvetica Neue';
+    font-weight: 900;
+    font-size: 150%;
+    text-align: center;
+    line-height: 170%;
+    color: white;
+}
+
+h6 {
+    padding-top: 2%;
+    margin: 0;
+    font-family: 'Open Sans';
+    font-weight: 500;
+    font-size: 70%;
+    text-align: center;
+    color: #CECECE;
+}
+.getintouch>form{
+    width:80%;
+    height:70%;
+}
+input[type=button] {
+    width: 60%;
+    height: 45%;
+    text-align: center;
+    background-color: transparent;
+    padding: 1% 0.2% 1% 0.2%;
+
+    border: 3px solid #515151;
+    border-radius: 4px;
+    cursor: pointer;
+    font-family: 'HelveticaNeue';
+    font-weight: 900;
+    font-size: 100%;
+    color: white;
+}
+
+input[type=email] {
+    width: 100%;
+    height: 50%;
+    padding: 12px 20px;
+    margin: 2% 0;
+    transition: 0.5s;
+    border: none;
+    border-radius: 4px;
+    box-sizing: border-box;
+    background-color: #515151;
+    font-family: 'HelveticaNeue';
+    color: #cecece;
+    font-size: 100%;
+}
+
+input[type=email]::placeholder {
+    color: #cecece;
+}
+
+input[type=button]:hover {
+    background-color: grey;
+}
+
+footer {
+    height: 100%;
+    background-color: #515151;
+    text-align: center;
+    grid-row: 4;
+}
+@media (min-width:800px){
+    .bigportfoliotext {
+        font-size: 90%;
+        line-height: 100%;
+    }
+    .portfolio{
+        width: 35%;
+    }
+    .bigbluetext{
+        font-size: 70%;
+        line-height: 70%;
+    }
+    .smallbluetext{
+        font-size: 90%;
+        line-height: 120%;
+    }
+    .pictograms{
+        height: 25%;
+        width: 30%;
+    }
+    input[type=button] {
+        width: 35%;
+        height: 35%;
+        font-size: 60%;
+        padding-top: 0.5%;
+    }
+    input[type=email] {
+        width: 70%;
+        height: 30%;
+        font-size: 60%;
+    }
+    h6 {
+        font-size: 50%;
+    }
+    footer>h6{
+        font-size: 40%;
+    }
+    .redblock{
+        grid-template-columns:1fr 2fr 2fr 2fr 2fr 1fr; 
+        grid-template-rows: 10fr 8fr 8fr 10fr;
+    }
+    .examples{
+        grid-template-columns: 25% 25% 25% 25%;
+        grid-template-rows: 50% 50%;
+        grid-row: 2/4;
+        grid-column: 2/6;
+    }
+    #bigredtext{
+        grid-column: 2/6;
+    }
+    #fbpic,#twpic,#gpic,#linpic{
+        background-size: 20%;
+    }
+    .pictograms{
+        width:30%;
+    }
+    #item1{
+        grid-row: 1;
+        grid-column: 1;
+    }
+    #item2{
+        grid-row: 1;
+        grid-column: 3;
+    }
+    #item3{
+        grid-row: 2;
+        grid-column: 2;
+    }
+    #item4{
+        grid-row: 2;
+        grid-column: 4;
+    }
+    #img1 {
+        grid-row: 1;
+        grid-column: 2;
+    }
+    
+    #img2 {
+        grid-row: 1;
+        grid-column: 4;
+    }
+    
+    #img3 {
+        grid-row: 2;
+        grid-column: 1;
+    }
+    
+    #img4 {
+        grid-row: 2;
+        grid-column: 3;
+    }
+}
