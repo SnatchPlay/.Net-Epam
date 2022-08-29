@@ -48,7 +48,7 @@ body {
     padding: 0 0 0 0;
 }
 #img1 {
-    background-image: url(/img/photo1.jpg);
+    background-image: url(../img/photo1.jpg);
     background-repeat: no-repeat;
     background-size:revert;
     background-position:top ;
@@ -71,7 +71,7 @@ body {
     transform: scale(1.5);
 }
 #img2 {
-    background-image: url(/img/photo3.png);
+    background-image: url(../img/photo3.png);
     background-repeat:no-repeat;
     background-size:cover;
     background-position: top;
@@ -82,7 +82,7 @@ body {
     padding: 0 0 0 0;
 }
 #img3 {
-    background-image: url(/img/photo5.jpg);
+    background-image: url(../img/photo5.jpg);
     background-repeat: no-repeat;
     background-size: revert;
     background-position: top;
@@ -93,7 +93,7 @@ body {
     padding: 0 0 0 0;
 }
 #img4 {
-    background-image: url(/img/photo7.jpg);
+    background-image: url(../img/photo7.jpg);
     background-repeat: no-repeat;
     background-size: revert;
     background-position: top;
@@ -310,7 +310,7 @@ input[type=submit] {
 }
 
 #fbpic {
-    background-image: url(/img/icon8.png);
+    background-image: url(../img/icon8.png);
     background-repeat: no-repeat;
     background-size: inherit;
     background-position: center;
@@ -324,7 +324,7 @@ input[type=submit] {
         border: 3px solid red;
     }
 #linpic {
-    background-image: url(/img/icon11.png);
+    background-image: url(../img/icon11.png);
     background-repeat: no-repeat;
     background-size: inherit;
     background-position: center;
@@ -338,7 +338,7 @@ input[type=submit] {
     border: 3px solid red;
 }
 #gpic {
-    background-image: url(/img/icon10.png);
+    background-image: url(../img/icon10.png);
     background-repeat: no-repeat;
     background-size: inherit;
     background-position: center;
@@ -352,7 +352,7 @@ input[type=submit] {
     border: 3px solid red;
 }
 #twpic {
-    background-image: url(/img/icon9.png);
+    background-image: url(../img/icon9.png);
     background-repeat: no-repeat;
     background-size: inherit;
     background-position: center;
